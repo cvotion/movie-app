@@ -1,0 +1,5 @@
+
+export const ADD_TO_WANTTOSEE = "ADD_TO_WANTTOSEE"; 
+export const ADD_TO_SEEN = "ADD_TO_SEEN"; 
+export const LOAD_IN_THEATERS = "LOAD_IN_THEATERS"; 
+export const LOAD_COMING_SOON = "LOAD_COMING_SOON"; 
