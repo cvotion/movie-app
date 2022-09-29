@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {loadInTheaters} from './actions/inTheatersAction'
 import MovieSlider from './components/MovieSlider'
 
+// k_ynldn2vr, k_aks02gus')
 
 function App() {
 
@@ -13,14 +14,14 @@ function App() {
   const moviesComingSoon = useSelector(state=> state.comingSoon.comingSoonList) 
 
   const getNowPlaying = async () => {
-    let results = await fetch('https://imdb-api.com/en/API/InTheaters/k_aks02gus')
+    let results = await fetch('https://imdb-api.com/en/API/InTheaters/k_ynldn2vr')
     let data = await results.json()
     dispatch(loadInTheaters(data.items))
     console.log(`inside`, data.items)
   }
 
   const getComingSoon = async () => {
-    let results = await fetch('https://imdb-api.com/en/API/ComingSoon/k_aks02gus')
+    let results = await fetch('https://imdb-api.com/en/API/ComingSoon/k_ynldn2vr')
     let data = await results.json()
     dispatch(loadInTheaters(data.items))
     console.log(`inside`, data.items)
@@ -28,7 +29,6 @@ function App() {
   
   useEffect(()=>{
     getNowPlaying()
-    getComingSoon()
     console.log('useEffect', moviesInTheaters)
     
   }, [])
@@ -40,7 +40,7 @@ function App() {
         <MovieSlider moviesProp={moviesInTheaters}/>
       </div>
       <br/>
-      <br/>
+      {/* <br/>
       <br/>
       <br/>
       <br/>
@@ -49,7 +49,7 @@ function App() {
       <div className='list'>
         <h2>Coming Soon</h2>
         <MovieSlider moviesProp={moviesComingSoon}/>
-      </div>
+      </div> */}
       
 
     </div>
