@@ -1,4 +1,4 @@
-import {ADD_TO_WANTTOSEE} from '../actions/types'
+import {ADD_TO_WANTTOSEE, REMOVE_FROM_WANTTOSEE} from '../actions/types'
 
 const wantToSee = (state, action) => {
     
@@ -13,11 +13,19 @@ const wantToSee = (state, action) => {
     switch(action.type){
         case ADD_TO_WANTTOSEE: 
                 //quantity
-
             return {
                 ...state, 
-                wantToSeeList: state.cartItems.concat(action.product), 
-                numberOfItemsInList: state.numberOfItems + 1, 
+                wantToSeeList: state.wantToSeeList.concat(action.payload), 
+                numberOfItemsInList: state.wantToSeeList.length + 1
+            }
+        case REMOVE_FROM_WANTTOSEE: 
+                //quantity
+            return {
+                ...state, 
+                wantToSeeList: state.wantToSeeList.filter(movie=>{
+                    return movie.id !== action.id
+                }) ,
+                numberOfItemsInList: state.wantToSeeList.length + 1
             }
 
         default: 

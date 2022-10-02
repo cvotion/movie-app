@@ -1,6 +1,6 @@
 import {ADD_TO_SEEN} from '../actions/types'
 
-const wantToSee = (state, action) => {
+const haveSeen = (state, action) => {
     
     if(state === undefined){
         state = {
@@ -28,4 +28,4 @@ const wantToSee = (state, action) => {
 }
 
 
-export default wantToSee;
+export default haveSeen;

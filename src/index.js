@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BaseLayout from './components/layout/BaseLayout';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes as Switch} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import rootReducer from './reducers'
 import App from './App';
@@ -30,14 +30,14 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = createStore(persistedReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 let persistor = persistStore(store)
-
+// const root = ReactDOM.createRoot(document.getElementById('root'));
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
       <Router>
         <BaseLayout>
-          <Routes>
+          <Switch>
             <Route path="/" element={<App />}/>
             <Route path="/wanttosee" element={<WantToSee />}/>
             <Route path="/watched" element={<Watched />}/>
@@ -45,7 +45,7 @@ ReactDOM.render(
             <Route path="/intheaters" element={<InTheaters />}/>
             <Route path="/comingsoon" element={<ComingSoon />}/>
             
-          </Routes>
+          </Switch>
         </BaseLayout>
       </Router>
     </PersistGate>
