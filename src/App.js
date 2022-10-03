@@ -18,25 +18,40 @@ function App() {
   const moviesComingSoon = useSelector(state=> state.comingSoon.comingSoonList) 
 
   const getNowPlaying = async () => {
-    let results = await fetch('https://imdb-api.com/en/API/InTheaters/k_aks02gus')
+    let results = await fetch('https://imdb-api.com/en/API/InTheaters/k_ynldn2vr')
     let data = await results.json()
-    dispatch(loadInTheaters(data.items))
+    let newlist = data.items.map(movieObj=>{
+      return {
+        ...movieObj,
+        want: false,
+        wacthed: false 
+      }
+    })
+    dispatch(loadInTheaters(newlist))
     console.log(`inside`, data.items)
   }
-
+  
   const getComingSoon = async () => {
-    let results = await fetch('https://imdb-api.com/en/API/ComingSoon/k_aks02gus')
+    let results = await fetch('https://imdb-api.com/en/API/ComingSoon/k_ynldn2vr')
     let data = await results.json()
     dispatch(loadComingSoon(data.items))
     console.log(`inside`, data.items)
   }
+
+  const getBestMovies = async () => {
+    let results = await fetch('https://imdb-api.com/en/API/Top250Movies/k_ynldn2vr')
+    let data = await results.json()
+    
+  }
   
   useEffect(()=>{
-    getNowPlaying()
-    getComingSoon()
-    console.log('useEffect', moviesInTheaters)
+    if(moviesInTheaters === null || moviesInTheaters[0] === undefined || moviesInTheaters === []){
+      getNowPlaying()
+      getComingSoon()
+    }
     
   }, [])
+  
   return (
     <div className="App">
       <h1>There are {numberOfWantToSee} Movies that you want to see</h1>

@@ -1,6 +1,6 @@
 
 import {LOAD_IN_THEATERS} from '../actions/types'
-const productsReducer = (state, action) => {
+const inTheatersReducer = (state, action) => {
     
     if(state === undefined){
         state = {
@@ -25,4 +25,4 @@ const productsReducer = (state, action) => {
     // return state;
 }
 
-export default productsReducer;
+export default inTheatersReducer;

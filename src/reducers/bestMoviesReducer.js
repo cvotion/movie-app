@@ -1,19 +1,19 @@
 
-import {LOAD_COMING_SOON} from '../actions/types'
-const comingSoonReducer = (state, action) => {
+import {LOAD_BEST_MOVIES} from '../actions/types'
+const bestmoviesReducer = (state, action) => {
     
     if(state === undefined){
         state = {
-            comingSoonList : []
+            bestMoviesList : []
          
         }
     }
 
     switch(action.type){
-        case LOAD_COMING_SOON: 
+        case LOAD_BEST_MOVIES: 
             return {
                 ...state,
-                comingSoonList: action.payload 
+                bestMoviesList: action.payload 
 
             }
 
@@ -25,4 +25,4 @@ const comingSoonReducer = (state, action) => {
     // return state;
 }
 
-export default comingSoonReducer;
+export default bestmoviesReducer;

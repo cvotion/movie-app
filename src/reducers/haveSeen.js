@@ -16,7 +16,7 @@ const haveSeen = (state, action) => {
 
             return {
                 ...state, 
-                watchedList: state.cartItems.concat(action.product), 
+                watchedList: state.watchedList.concat(action.payload), 
                 numberOfItemsInList: state.numberOfItems + 1, 
             }
 

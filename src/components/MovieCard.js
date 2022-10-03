@@ -20,15 +20,16 @@ function MyVerticallyCenteredModal(props) {
       if(inWantList){
         setShow(true)
       } else {
-        setInWantList(true)
+        movie.want = true
         dispatch(addToWantToSee(movie))
       }
       
     }
     
     const handleAddToWatchedList = (movie) =>{
-
-      setInWatchedList(true)
+      movie.watched = true
+      movie.want = false
+      
       dispatch(addToSeen(movie))
       dispatch(removeFromWantToSee(movie.id))
       
@@ -70,7 +71,7 @@ function MyVerticallyCenteredModal(props) {
         <p>Release Date: {props.movie.releaseState}</p>
       </Modal.Body>
       <Modal.Footer>
-      <Button variant="primary" onClick={()=>handleAddToWantList(props.movie)}>{inWantList?"Added to Watchlist":"Want to Watch"}</Button> <Button variant="success" onClick={()=>handleAddToWatchedList(props.movie)}>{inWatchedList?"Watched":"Add to Watched"}</Button>
+      <Button variant="primary" onClick={()=>handleAddToWantList(props.movie)}>{props.movie.want?"Added to Watchlist":"Want to Watch"}</Button> <Button variant="success" onClick={()=>handleAddToWatchedList(props.movie)}>{props.movie.watched?"Watched":"Add to Watched"}</Button>
       </Modal.Footer>
     </Modal>
     </>

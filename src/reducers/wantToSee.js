@@ -16,7 +16,7 @@ const wantToSee = (state, action) => {
             return {
                 ...state, 
                 wantToSeeList: state.wantToSeeList.concat(action.payload), 
-                numberOfItemsInList: state.wantToSeeList.length + 1
+                numberOfItemsInList: state.numberOfItemsInList + 1
             }
         case REMOVE_FROM_WANTTOSEE: 
                 //quantity
@@ -25,7 +25,7 @@ const wantToSee = (state, action) => {
                 wantToSeeList: state.wantToSeeList.filter(movie=>{
                     return movie.id !== action.id
                 }) ,
-                numberOfItemsInList: state.wantToSeeList.length + 1
+                numberOfItemsInList: state.numberOfItemsInList - 1 
             }
 
         default: 

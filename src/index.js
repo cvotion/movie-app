@@ -19,6 +19,7 @@ import InTheaters from './components/InTheaters'
 import ComingSoon from './components/ComingSoon'
 
 
+
 const persistConfig = {
   key: 'root',
   storage,
@@ -27,7 +28,9 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 
+
 const store = createStore(persistedReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
 
 let persistor = persistStore(store)
 // const root = ReactDOM.createRoot(document.getElementById('root'));
