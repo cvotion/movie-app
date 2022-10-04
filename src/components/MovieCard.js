@@ -11,14 +11,13 @@ import Modal from 'react-bootstrap/Modal';
 
 function MyVerticallyCenteredModal(props) {
     const dispatch = useDispatch()
-    const [inWantList, setInWantList] = useState(false)
-    const [inWatchedList, setInWatchedList] = useState(false)
     const [show, setShow] = useState(false);
 
     const handleAddToWantList = (movie) =>{
 
-      if(inWantList){
-        setShow(true)
+      if(movie.want){
+        movie.want = false
+        dispatch(removeFromWantToSee(movie.id))
       } else {
         movie.want = true
         dispatch(addToWantToSee(movie))
@@ -27,27 +26,21 @@ function MyVerticallyCenteredModal(props) {
     }
     
     const handleAddToWatchedList = (movie) =>{
-      movie.watched = true
-      movie.want = false
+
+      if(movie.watched){
+        setShow(true)
+      } else {
+        movie.watched = true
+        movie.want = false
+        
+        dispatch(addToSeen(movie))
+        dispatch(removeFromWantToSee(movie.id))
+      }
       
-      dispatch(addToSeen(movie))
-      dispatch(removeFromWantToSee(movie.id))
       
     }
     return (
       <>
-    <Alert show={show} variant="success">
-        <Alert.Heading>How's it going?!</Alert.Heading>
-        <p>
-          Movie is already in your watch list!
-        </p>
-        <hr />
-        <div className="d-flex justify-content-end">
-          <Button onClick={() => setShow(false)} variant="outline-success">
-            Close
-          </Button>
-        </div>
-      </Alert>
         <Modal
       {...props}
       size="lg"
@@ -61,6 +54,18 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Header>
       <Modal.Body>
         <img src={props.movie.image} width='300px'/>
+    <Alert show={show} variant="danger">
+        <Alert.Heading>Wait!</Alert.Heading>
+        <p>
+          Movie is already in your list!
+        </p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-danger">
+            Close
+          </Button>
+        </div>
+      </Alert>
         <h5>{props.movie.contentRating} | {props.movie.genres}</h5>
         <h6>Starring: {props.movie.stars}</h6>
         <h6>Director(s): {props.movie.directors}</h6>
@@ -71,7 +76,7 @@ function MyVerticallyCenteredModal(props) {
         <p>Release Date: {props.movie.releaseState}</p>
       </Modal.Body>
       <Modal.Footer>
-      <Button variant="primary" onClick={()=>handleAddToWantList(props.movie)}>{props.movie.want?"Added to Watchlist":"Want to Watch"}</Button> <Button variant="success" onClick={()=>handleAddToWatchedList(props.movie)}>{props.movie.watched?"Watched":"Add to Watched"}</Button>
+      <Button variant={props.movie.want?"danger":"primary"} onClick={()=>handleAddToWantList(props.movie)}>{props.movie.want?"Remove from Watchlist?":"Want to Watch"}</Button> <Button variant={props.movie.watched?"success":"primary"} onClick={()=>handleAddToWatchedList(props.movie)}>{props.movie.watched?"Watched":"Add to Watched"}</Button>
       </Modal.Footer>
     </Modal>
     </>
@@ -85,8 +90,7 @@ const MovieCard = ({movie}) => {
     <>
       <div className='movieCard col'>
             <a href="#" onClick={() => setModalShow(true)} className="d-flex flex-column align-items-center justify-content-center">
-                <img src={movie.image} width='150px' />
-                <h4>{movie.title}</h4>
+                <img className='movieCardImg' src={movie.image}  />
             </a>
           </div>
           <MyVerticallyCenteredModal movie={movie}

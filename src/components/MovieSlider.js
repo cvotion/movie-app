@@ -10,7 +10,7 @@ const MovieSlider = ({moviesProp}) => {
         infinite: false,
         speed: 500,
         slidesToShow: 5,
-        slidesToScroll: 3
+        slidesToScroll: 4
       }
 
     let shortList = []

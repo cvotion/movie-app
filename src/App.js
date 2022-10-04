@@ -1,8 +1,9 @@
 import './App.css';
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {loadInTheaters} from './actions/inTheatersAction'
 import {loadComingSoon} from './actions/comingSooonAction'
+import {loadBestMovies} from './actions/bestMoviesAction'
 import MovieSlider from './components/MovieSlider'
 import MovieCard from './components/MovieCard';
 
@@ -16,6 +17,7 @@ function App() {
   const numberOfWantToSee = useSelector(state=> state.wantToSee.numberOfItemsInList)
   const numberOfWatched = useSelector(state=> state.haveSeen.numberOfItemsInList)
   const moviesComingSoon = useSelector(state=> state.comingSoon.comingSoonList) 
+  const bestMovies = useSelector(state=> state.bestMovies.bestMoviesList)
 
   const getNowPlaying = async () => {
     let results = await fetch('https://imdb-api.com/en/API/InTheaters/k_ynldn2vr')
@@ -28,26 +30,26 @@ function App() {
       }
     })
     dispatch(loadInTheaters(newlist))
-    console.log(`inside`, data.items)
   }
   
   const getComingSoon = async () => {
     let results = await fetch('https://imdb-api.com/en/API/ComingSoon/k_ynldn2vr')
     let data = await results.json()
     dispatch(loadComingSoon(data.items))
-    console.log(`inside`, data.items)
   }
 
   const getBestMovies = async () => {
     let results = await fetch('https://imdb-api.com/en/API/Top250Movies/k_ynldn2vr')
     let data = await results.json()
-    
+    dispatch(loadBestMovies(data.items))
+
   }
   
   useEffect(()=>{
     if(moviesInTheaters === null || moviesInTheaters[0] === undefined || moviesInTheaters === []){
       getNowPlaying()
       getComingSoon()
+      getBestMovies()
     }
     
   }, [])
@@ -60,11 +62,17 @@ function App() {
         <h2>In Theaters</h2>
         <MovieSlider moviesProp={moviesInTheaters}/>
       </div>
-      <br/>
+      {/* <br/>
       <br/>
       <div className="list">
         <h2>Coming Soon</h2>
         <MovieSlider moviesProp={moviesComingSoon}/>
+      </div> */}
+      <br/>
+      <br/>
+      <div className="list">
+        <h2>Top Movies of All Time</h2>
+        <MovieSlider moviesProp={bestMovies}/>
       </div>
       
       
