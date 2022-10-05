@@ -88,7 +88,7 @@ const MovieCard = ({movie}) => {
     const [modalShow, setModalShow] = React.useState(false);
   return (
     <>
-      <div className='movieCard col'>
+      <div className='movieCard col-8'>
             <a href="#" onClick={() => setModalShow(true)} className="d-flex flex-column align-items-center justify-content-center">
                 <img className='movieCardImg' src={movie.image}  />
             </a>

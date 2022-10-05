@@ -10,11 +10,15 @@ const BestMovies = () => {
   return (
     <>
     <h1>Coming Soon</h1>
+    <div className='mainContainer'>
     <div className='moviesContainer row'>
-      {bestMoviesList.map(movie=>{
-        return <MovieCard movie={movie}/>
-      })}
+        {bestMoviesList.map(movie=>{
+          return <div className='col-3 d-flex justify-content-center movieCard'>
+            <MovieCard movie={movie}/>
+          </div>
+        })}
       
+      </div>
     </div>
     </>
   )

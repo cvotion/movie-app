@@ -7,11 +7,17 @@ const WantToSee = () => {
 
   return (
     <>
-      <div className='row'>
+      <h1>Want to Watch</h1>
+    <div className='mainContainer'>
+    <div className='moviesContainer row'>
         {wantToWatchList.map(movie=>{
-          return <MovieCard movie={movie} className="col-2"/>
+          return <div className='col-3 d-flex justify-content-center movieCard'>
+            <MovieCard movie={movie}/>
+          </div>
         })}
+      
       </div>
+    </div>
     </>
   )
 }
